@@ -1,52 +1,88 @@
-body {
-  background: #fafafa;
-  font-family: sans-serif;
-}
-
-.post {
-  background: white;
-  border: 1px solid #dbdbdb;
-  border-radius: 8px;
-  max-width: 320px;
+/* Stories bar */
+.stories-bar {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  max-width: 400px;
   margin: 20px auto;
   padding: 10px;
-}
-
-.post img {
-  width: 100%;
-  border-radius: 4px;
-}
-
-button {
-  margin-top: 8px;
-  padding: 6px 12px;
-  cursor: pointer;
-}
-
-.new-post-form {
   background: white;
   border: 1px solid #dbdbdb;
   border-radius: 8px;
-  max-width: 320px;
-  margin: 20px auto;
-  padding: 16px;
+}
+
+.story-item {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-}
-
-.new-post-form input {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.new-post-form button {
-  background: #0095f6;
-  color: white;
-  border: none;
-  padding: 8px;
-  border-radius: 4px;
+  align-items: center;
   cursor: pointer;
+  flex-shrink: 0;
+  width: 70px;
+}
+
+.story-ring {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  padding: 3px;
+  background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.story-ring.viewed {
+  background: #dbdbdb;
+  /* gray ring once viewed, like real Instagram */
+}
+
+.story-ring img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid white;
+}
+
+.story-item p {
+  font-size: 12px;
+  margin-top: 4px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+/* Fullscreen story viewer */
+.story-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.story-modal-content {
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+}
+
+.story-modal-content img {
+  width: 100%;
+  border-radius: 8px;
+  max-height: 80vh;
+  object-fit: cover;
+}
+
+.story-modal-username {
+  color: white;
+  margin-bottom: 10px;
   font-weight: bold;
 }

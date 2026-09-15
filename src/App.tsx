@@ -2,6 +2,7 @@ import { useState } from "react";
 import posts from "./posts";
 import type { Post } from "./posts";
 import NewPostForm from "./NewPostForm";
+import StoriesBar from "./StoriesBar";
 import "./App.css";
 
 function App() {
@@ -15,12 +16,14 @@ function App() {
   };
 
   const handleAddPost = (newPost: Post) => {
-    setPostList([newPost, ...postList]); // add new post to the top
+    setPostList([newPost, ...postList]);
   };
 
   return (
     <div>
       <h1>My Instagram</h1>
+
+      <StoriesBar />
 
       <NewPostForm onAddPost={handleAddPost} />
 
