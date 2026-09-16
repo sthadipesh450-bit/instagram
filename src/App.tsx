@@ -12,7 +12,6 @@ function App() {
   const [showForm, setShowForm] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
 
-  // Remember the user's choice even after they refresh the page
   useEffect(() => {
     const saved = localStorage.getItem("theme");
     if (saved === "dark") setDarkMode(true);
@@ -36,7 +35,10 @@ function App() {
 
   return (
     <div className={darkMode ? "app dark" : "app"}>
-      <Navbar darkMode={darkMode} onToggleTheme={() => setDarkMode(!darkMode)} />
+      <Navbar
+        darkMode={darkMode}
+        onToggleTheme={() => setDarkMode((prev) => !prev)}
+      />
 
       <main className="feed">
         <StoriesBar />
