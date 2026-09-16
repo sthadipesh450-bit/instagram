@@ -1,49 +1,54 @@
 import {
   FiHome,
   FiSearch,
-  FiCompass,
   FiFilm,
-  FiMessageCircle,
+  FiSend,
   FiHeart,
   FiPlusSquare,
-  FiUser,
+  FiMenu,
+  FiGrid,
 } from "react-icons/fi";
 import Logo from "./Logo";
 
 function Sidebar() {
   return (
     <aside className="sidebar">
-      <div className="sidebar-logo">
-        <Logo size={26} />
-        <span>My Instagram</span>
+      <div className="sidebar-top">
+        <div className="sidebar-icon logo-icon">
+          <Logo size={26} />
+        </div>
+
+        <a href="#" className="sidebar-icon">
+          <FiHome size={24} />
+        </a>
+        <a href="#" className="sidebar-icon">
+          <FiFilm size={24} />
+        </a>
+        <a href="#" className="sidebar-icon">
+          <FiSend size={24} />
+        </a>
+        <a href="#" className="sidebar-icon">
+          <FiSearch size={24} />
+        </a>
+        <a href="#" className="sidebar-icon">
+          <FiHeart size={24} />
+        </a>
+        <a href="#" className="sidebar-icon">
+          <FiPlusSquare size={24} />
+        </a>
+        <a href="#" className="sidebar-icon avatar-icon">
+          <div className="mini-avatar" />
+        </a>
       </div>
 
-      <nav className="sidebar-nav">
-        <a href="#" className="sidebar-link">
-          <FiHome size={22} /> <span>Home</span>
+      <div className="sidebar-bottom">
+        <a href="#" className="sidebar-icon">
+          <FiMenu size={24} />
         </a>
-        <a href="#" className="sidebar-link">
-          <FiSearch size={22} /> <span>Search</span>
+        <a href="#" className="sidebar-icon">
+          <FiGrid size={24} />
         </a>
-        <a href="#" className="sidebar-link">
-          <FiCompass size={22} /> <span>Explore</span>
-        </a>
-        <a href="#" className="sidebar-link">
-          <FiFilm size={22} /> <span>Reels</span>
-        </a>
-        <a href="#" className="sidebar-link">
-          <FiMessageCircle size={22} /> <span>Messages</span>
-        </a>
-        <a href="#" className="sidebar-link">
-          <FiHeart size={22} /> <span>Notifications</span>
-        </a>
-        <a href="#" className="sidebar-link">
-          <FiPlusSquare size={22} /> <span>Create</span>
-        </a>
-        <a href="#" className="sidebar-link">
-          <FiUser size={22} /> <span>Profile</span>
-        </a>
-      </nav>
+      </div>
     </aside>
   );
 }
