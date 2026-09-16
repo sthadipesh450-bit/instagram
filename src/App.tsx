@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import posts from "./posts";
 import type { Post } from "./posts";
 import NewPostForm from "./NewPostForm";
@@ -10,6 +10,17 @@ import "./App.css";
 function App() {
   const [postList, setPostList] = useState<Post[]>(posts);
   const [showForm, setShowForm] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
+
+  // Remember the user's choice even after they refresh the page
+  useEffect(() => {
+    const saved = localStorage.getItem("theme");
+    if (saved === "dark") setDarkMode(true);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("theme", darkMode ? "dark" : "light");
+  }, [darkMode]);
 
   const handleLike = (id: number) => {
     const updated = postList.map((post) =>
@@ -24,8 +35,8 @@ function App() {
   };
 
   return (
-    <div className="app">
-      <Navbar />
+    <div className={darkMode ? "app dark" : "app"}>
+      <Navbar darkMode={darkMode} onToggleTheme={() => setDarkMode(!darkMode)} />
 
       <main className="feed">
         <StoriesBar />

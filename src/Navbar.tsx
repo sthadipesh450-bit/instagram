@@ -1,6 +1,11 @@
-import { FaHeart, FaPlusSquare, FaCompass } from "react-icons/fa";
+import { FaHeart, FaPlusSquare, FaCompass, FaMoon, FaSun } from "react-icons/fa";
 
-function Navbar() {
+interface NavbarProps {
+  darkMode: boolean;
+  onToggleTheme: () => void;
+}
+
+function Navbar({ darkMode, onToggleTheme }: NavbarProps) {
   return (
     <header className="navbar">
       <div className="navbar-inner">
@@ -9,6 +14,9 @@ function Navbar() {
           <FaCompass size={24} />
           <FaPlusSquare size={24} />
           <FaHeart size={24} />
+          <button className="theme-toggle-btn" onClick={onToggleTheme}>
+            {darkMode ? <FaSun size={22} /> : <FaMoon size={22} />}
+          </button>
         </div>
       </div>
     </header>

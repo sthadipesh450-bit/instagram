@@ -1,3 +1,23 @@
+/* Light mode (default) variables */
+:root {
+  --bg-color: #fafafa;
+  --card-bg: #ffffff;
+  --text-color: #262626;
+  --border-color: #dbdbdb;
+  --muted-text: #8e8e8e;
+  --input-bg: #ffffff;
+}
+
+/* Dark mode variables — applied when .dark class is on the app wrapper */
+.dark {
+  --bg-color: #000000;
+  --card-bg: #121212;
+  --text-color: #f5f5f5;
+  --border-color: #363636;
+  --muted-text: #a8a8a8;
+  --input-bg: #1e1e1e;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -5,19 +25,21 @@
 }
 
 body {
-  background: #fafafa;
+  background: var(--bg-color);
   font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-  color: #262626;
+  color: var(--text-color);
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
 .app {
   min-height: 100vh;
+  background: var(--bg-color);
 }
 
-/* Top navbar */
+/* ---------- Top navbar ---------- */
 .navbar {
-  background: white;
-  border-bottom: 1px solid #dbdbdb;
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border-color);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -36,22 +58,32 @@ body {
   font-size: 22px;
   font-weight: 700;
   font-family: cursive;
+  color: var(--text-color);
 }
 
 .navbar-icons {
   display: flex;
+  align-items: center;
   gap: 18px;
-  color: #262626;
+  color: var(--text-color);
 }
 
-/* Feed layout */
+.theme-toggle-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+}
+
+/* ---------- Feed layout ---------- */
 .feed {
   max-width: 470px;
   margin: 0 auto;
   padding: 16px 0 60px;
 }
 
-/* Toggle new post button */
 .toggle-form-btn {
   display: block;
   width: calc(100% - 32px);
@@ -70,14 +102,14 @@ body {
   background: #1877f2;
 }
 
-/* Story bar */
+/* ---------- Story bar ---------- */
 .stories-bar {
   display: flex;
   gap: 16px;
   overflow-x: auto;
   padding: 12px 16px;
-  background: white;
-  border-bottom: 1px solid #efefef;
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border-color);
   margin-bottom: 16px;
 }
 
@@ -102,7 +134,7 @@ body {
 }
 
 .story-ring.viewed {
-  background: #dbdbdb;
+  background: var(--border-color);
 }
 
 .story-ring img {
@@ -110,7 +142,7 @@ body {
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid white;
+  border: 2px solid var(--card-bg);
 }
 
 .story-item p {
@@ -121,12 +153,13 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   width: 100%;
+  color: var(--text-color);
 }
 
-/* Post card */
+/* ---------- Post card ---------- */
 .post {
-  background: white;
-  border: 1px solid #dbdbdb;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
   border-radius: 3px;
   margin-bottom: 24px;
 }
@@ -149,6 +182,7 @@ body {
 .post-username {
   font-weight: 600;
   font-size: 14px;
+  color: var(--text-color);
 }
 
 .post-image {
@@ -168,7 +202,7 @@ body {
   background: none;
   border: none;
   cursor: pointer;
-  color: #262626;
+  color: var(--text-color);
   padding: 0;
 }
 
@@ -180,18 +214,20 @@ body {
   padding: 8px 12px 0;
   font-weight: 600;
   font-size: 14px;
+  color: var(--text-color);
 }
 
 .post-caption {
   padding: 6px 12px 14px;
   font-size: 14px;
   line-height: 1.4;
+  color: var(--text-color);
 }
 
-/* New post form */
+/* ---------- New post form ---------- */
 .new-post-form {
-  background: white;
-  border: 1px solid #dbdbdb;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   margin: 0 16px 16px;
   padding: 16px;
@@ -203,14 +239,17 @@ body {
 .new-post-form h2 {
   font-size: 16px;
   margin-bottom: 4px;
+  color: var(--text-color);
 }
 
 .new-post-form input[type="text"] {
   padding: 10px;
-  border: 1px solid #dbdbdb;
+  border: 1px solid var(--border-color);
   border-radius: 6px;
   font-size: 14px;
   outline: none;
+  background: var(--input-bg);
+  color: var(--text-color);
 }
 
 .new-post-form input[type="text"]:focus {
@@ -219,6 +258,7 @@ body {
 
 .new-post-form input[type="file"] {
   font-size: 13px;
+  color: var(--text-color);
 }
 
 .new-post-form button[type="submit"] {
@@ -236,7 +276,7 @@ body {
   background: #1877f2;
 }
 
-/* Story modal */
+/* ---------- Story modal ---------- */
 .story-modal {
   position: fixed;
   top: 0;
@@ -269,7 +309,7 @@ body {
   font-weight: bold;
 }
 
-/* Mobile responsiveness */
+/* ---------- Mobile responsiveness ---------- */
 @media (max-width: 500px) {
 
   .navbar-inner,
