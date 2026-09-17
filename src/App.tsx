@@ -12,6 +12,7 @@ function App() {
   const [showForm, setShowForm] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
   const [commentDrafts, setCommentDrafts] = useState<Record<number, string>>({});
+  const [activeView, setActiveView] = useState<"home" | "profile">("home");
 
   useEffect(() => {
     const saved = localStorage.getItem("theme");
@@ -89,107 +90,131 @@ function App() {
       />
 
       <main className="feed">
-        <section className="profile-card">
-          <div className="profile-header">
-            <div className="profile-avatar" />
+        <div className="view-switch" role="tablist" aria-label="View switcher">
+          <button
+            type="button"
+            className={activeView === "home" ? "view-tab active" : "view-tab"}
+            onClick={() => setActiveView("home")}
+          >
+            Home
+          </button>
+          <button
+            type="button"
+            className={activeView === "profile" ? "view-tab active" : "view-tab"}
+            onClick={() => setActiveView("profile")}
+          >
+            Profile
+          </button>
+        </div>
 
-            <div className="profile-details">
-              <div className="profile-top-row">
-                <h2>{profile.username}</h2>
-                <button type="button" className="profile-action-btn">
-                  Edit Profile
-                </button>
-              </div>
+        {activeView === "profile" ? (
+          <section className="profile-card">
+            <div className="profile-header">
+              <div className="profile-avatar" />
 
-              <div className="profile-stats">
-                <span>
-                  <strong>{postList.length}</strong> posts
-                </span>
-                <span>
-                  <strong>{profile.followers}</strong> followers
-                </span>
-                <span>
-                  <strong>{profile.following}</strong> following
-                </span>
-              </div>
-
-              <p className="profile-bio">{profile.bio}</p>
-            </div>
-          </div>
-
-          <div className="profile-grid" aria-label="User posts">
-            {postList.map((post) => (
-              <div key={post.id} className="profile-grid-item">
-                <img src={post.image} alt={post.caption} />
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <StoriesBar />
-
-        <button className="toggle-form-btn" onClick={() => setShowForm(!showForm)}>
-          {showForm ? "Cancel" : "+ New Post"}
-        </button>
-
-        {showForm && <NewPostForm onAddPost={handleAddPost} />}
-
-        {postList.map((post) => (
-          <div key={post.id} className="post">
-            <div className="post-header">
-              <div className="post-avatar" />
-              <p className="post-username">{post.username}</p>
-            </div>
-
-            <img src={post.image} alt={post.caption} className="post-image" />
-
-            <div className="post-actions">
-              <button className="icon-btn" onClick={() => handleLike(post.id)}>
-                <FaRegHeart size={22} />
-              </button>
-            </div>
-
-            <p className="post-likes">{post.likes} likes</p>
-            <p className="post-caption">
-              <strong>{post.username}</strong> {post.caption}
-            </p>
-
-            <div className="comments-section">
-              {post.comments.slice(0, 3).map((comment) => (
-                <div key={comment.id} className="comment-item">
-                  <p>
-                    <strong>{comment.username}</strong> {comment.text}
-                  </p>
-                  <button
-                    type="button"
-                    className="comment-like-btn"
-                    onClick={() => handleLikeComment(post.id, comment.id)}
-                  >
-                    <FaRegHeart size={12} />
-                    <span>{comment.likes}</span>
+              <div className="profile-details">
+                <div className="profile-top-row">
+                  <div>
+                    <p className="profile-label">Profile</p>
+                    <h2>{profile.username}</h2>
+                  </div>
+                  <button type="button" className="profile-action-btn">
+                    Edit Profile
                   </button>
                 </div>
-              ))}
 
-              <div className="comment-form">
-                <input
-                  type="text"
-                  placeholder="Add a comment..."
-                  value={commentDrafts[post.id] ?? ""}
-                  onChange={(e) =>
-                    setCommentDrafts((currentDrafts) => ({
-                      ...currentDrafts,
-                      [post.id]: e.target.value,
-                    }))
-                  }
-                />
-                <button type="button" onClick={() => handleAddComment(post.id)}>
-                  Post
-                </button>
+                <div className="profile-stats">
+                  <span>
+                    <strong>{postList.length}</strong> posts
+                  </span>
+                  <span>
+                    <strong>{profile.followers}</strong> followers
+                  </span>
+                  <span>
+                    <strong>{profile.following}</strong> following
+                  </span>
+                </div>
+
+                <p className="profile-bio">{profile.bio}</p>
               </div>
             </div>
-          </div>
-        ))}
+
+            <div className="profile-grid" aria-label="User posts">
+              {postList.map((post) => (
+                <div key={post.id} className="profile-grid-item">
+                  <img src={post.image} alt={post.caption} />
+                </div>
+              ))}
+            </div>
+          </section>
+        ) : (
+          <>
+            <StoriesBar />
+
+            <button className="toggle-form-btn" onClick={() => setShowForm(!showForm)}>
+              {showForm ? "Cancel" : "+ New Post"}
+            </button>
+
+            {showForm && <NewPostForm onAddPost={handleAddPost} />}
+
+            {postList.map((post) => (
+              <div key={post.id} className="post">
+                <div className="post-header">
+                  <div className="post-avatar" />
+                  <p className="post-username">{post.username}</p>
+                </div>
+
+                <img src={post.image} alt={post.caption} className="post-image" />
+
+                <div className="post-actions">
+                  <button className="icon-btn" onClick={() => handleLike(post.id)}>
+                    <FaRegHeart size={22} />
+                  </button>
+                </div>
+
+                <p className="post-likes">{post.likes} likes</p>
+                <p className="post-caption">
+                  <strong>{post.username}</strong> {post.caption}
+                </p>
+
+                <div className="comments-section">
+                  {post.comments.slice(0, 3).map((comment) => (
+                    <div key={comment.id} className="comment-item">
+                      <p>
+                        <strong>{comment.username}</strong> {comment.text}
+                      </p>
+                      <button
+                        type="button"
+                        className="comment-like-btn"
+                        onClick={() => handleLikeComment(post.id, comment.id)}
+                      >
+                        <FaRegHeart size={12} />
+                        <span>{comment.likes}</span>
+                      </button>
+                    </div>
+                  ))}
+
+                  <div className="comment-form">
+                    <input
+                      type="text"
+                      placeholder="Add a comment..."
+                      value={commentDrafts[post.id] ?? ""}
+                      onChange={(e) =>
+                        setCommentDrafts((currentDrafts) => ({
+                          ...currentDrafts,
+                          [post.id]: e.target.value,
+                        }))
+                      }
+                    />
+                    <button type="button" onClick={() => handleAddComment(post.id)}>
+                      Post
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </>
+        )}
       </main>
     </div>
   );
