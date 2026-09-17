@@ -24,6 +24,7 @@ function NewPostForm({ onAddPost }: NewPostFormProps) {
       image,
       caption,
       likes: 0,
+      comments: [],
     };
 
     onAddPost(newPost);

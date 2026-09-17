@@ -11,6 +11,7 @@ function App() {
   const [postList, setPostList] = useState<Post[]>(posts);
   const [showForm, setShowForm] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
+  const [commentDrafts, setCommentDrafts] = useState<Record<number, string>>({});
 
   useEffect(() => {
     const saved = localStorage.getItem("theme");
@@ -31,6 +32,46 @@ function App() {
   const handleAddPost = (newPost: Post) => {
     setPostList([newPost, ...postList]);
     setShowForm(false);
+  };
+
+  const handleAddComment = (postId: number) => {
+    const text = commentDrafts[postId]?.trim();
+
+    if (!text) return;
+
+    const newComment = {
+      id: Date.now(),
+      username: "you",
+      text,
+      likes: 0,
+    };
+
+    setPostList((currentPosts) =>
+      currentPosts.map((post) =>
+        post.id === postId
+          ? { ...post, comments: [...post.comments, newComment] }
+          : post
+      )
+    );
+
+    setCommentDrafts((currentDrafts) => ({ ...currentDrafts, [postId]: "" }));
+  };
+
+  const handleLikeComment = (postId: number, commentId: number) => {
+    setPostList((currentPosts) =>
+      currentPosts.map((post) =>
+        post.id !== postId
+          ? post
+          : {
+              ...post,
+              comments: post.comments.map((comment) =>
+                comment.id === commentId
+                  ? { ...comment, likes: comment.likes + 1 }
+                  : comment
+              ),
+            }
+      )
+    );
   };
 
   return (
@@ -68,6 +109,41 @@ function App() {
             <p className="post-caption">
               <strong>{post.username}</strong> {post.caption}
             </p>
+
+            <div className="comments-section">
+              {post.comments.slice(0, 3).map((comment) => (
+                <div key={comment.id} className="comment-item">
+                  <p>
+                    <strong>{comment.username}</strong> {comment.text}
+                  </p>
+                  <button
+                    type="button"
+                    className="comment-like-btn"
+                    onClick={() => handleLikeComment(post.id, comment.id)}
+                  >
+                    <FaRegHeart size={12} />
+                    <span>{comment.likes}</span>
+                  </button>
+                </div>
+              ))}
+
+              <div className="comment-form">
+                <input
+                  type="text"
+                  placeholder="Add a comment..."
+                  value={commentDrafts[post.id] ?? ""}
+                  onChange={(e) =>
+                    setCommentDrafts((currentDrafts) => ({
+                      ...currentDrafts,
+                      [post.id]: e.target.value,
+                    }))
+                  }
+                />
+                <button type="button" onClick={() => handleAddComment(post.id)}>
+                  Post
+                </button>
+              </div>
+            </div>
           </div>
         ))}
       </main>
