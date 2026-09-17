@@ -34,6 +34,13 @@ function App() {
     setShowForm(false);
   };
 
+  const profile = {
+    username: "@mila_travel",
+    bio: "Photographer • foodie • exploring the world one city at a time",
+    followers: "24.8K",
+    following: "318",
+  };
+
   const handleAddComment = (postId: number) => {
     const text = commentDrafts[postId]?.trim();
 
@@ -82,6 +89,43 @@ function App() {
       />
 
       <main className="feed">
+        <section className="profile-card">
+          <div className="profile-header">
+            <div className="profile-avatar" />
+
+            <div className="profile-details">
+              <div className="profile-top-row">
+                <h2>{profile.username}</h2>
+                <button type="button" className="profile-action-btn">
+                  Edit Profile
+                </button>
+              </div>
+
+              <div className="profile-stats">
+                <span>
+                  <strong>{postList.length}</strong> posts
+                </span>
+                <span>
+                  <strong>{profile.followers}</strong> followers
+                </span>
+                <span>
+                  <strong>{profile.following}</strong> following
+                </span>
+              </div>
+
+              <p className="profile-bio">{profile.bio}</p>
+            </div>
+          </div>
+
+          <div className="profile-grid" aria-label="User posts">
+            {postList.map((post) => (
+              <div key={post.id} className="profile-grid-item">
+                <img src={post.image} alt={post.caption} />
+              </div>
+            ))}
+          </div>
+        </section>
+
         <StoriesBar />
 
         <button className="toggle-form-btn" onClick={() => setShowForm(!showForm)}>
