@@ -11,10 +11,12 @@ import {
 
 interface NavbarProps {
   darkMode: boolean;
+  username?: string;
   onToggleTheme: () => void;
+  onLogout: () => void;
 }
 
-function Navbar({ darkMode, onToggleTheme }: NavbarProps) {
+function Navbar({ darkMode, username, onToggleTheme, onLogout }: NavbarProps) {
   return (
     <header className="navbar">
       <div className="navbar-inner">
@@ -46,6 +48,14 @@ function Navbar({ darkMode, onToggleTheme }: NavbarProps) {
           <button className="nav-icon-btn profile-btn" aria-label="Profile">
             <FaUserCircle size={22} />
           </button>
+          {username && (
+            <div className="user-badge">
+              <span>{username}</span>
+              <button type="button" className="logout-btn" onClick={onLogout}>
+                Log out
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </header>

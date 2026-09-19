@@ -92,6 +92,28 @@ input {
   gap: 10px;
 }
 
+.user-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.02);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.logout-btn {
+  border: none;
+  background: #ef4444;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
 .nav-icon-btn {
   width: 38px;
   height: 38px;
@@ -120,6 +142,110 @@ input {
   height: 42px;
   border: 1px solid var(--border-color);
   background: rgba(0, 0, 0, 0.02);
+}
+
+.auth-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 24px;
+}
+
+.auth-shell {
+  width: min(100%, 420px);
+}
+
+.auth-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.auth-logo {
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f09433, #bc1888, #6a5cff);
+  color: white;
+  font-size: 1.25rem;
+}
+
+.auth-brand h1 {
+  font-family: "Segoe Print", "Bradley Hand", cursive;
+  font-size: 2rem;
+}
+
+.auth-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: var(--shadow-soft);
+}
+
+.auth-toggle {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.auth-tab {
+  border: 1px solid var(--border-color);
+  background: transparent;
+  color: var(--text-color);
+  padding: 10px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.auth-tab.active {
+  background: linear-gradient(135deg, #0095f6, #7b2ff7);
+  color: white;
+  border-color: transparent;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.auth-form input {
+  width: 100%;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background: var(--input-bg);
+  color: var(--text-color);
+  padding: 13px 14px;
+}
+
+.auth-form input:focus {
+  outline: none;
+  border-color: #0095f6;
+}
+
+.auth-submit-btn {
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #0095f6, #1877f2);
+  color: white;
+  padding: 12px 16px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.auth-error {
+  color: #e11d48;
+  font-size: 0.9rem;
+  font-weight: 600;
 }
 
 .feed {
