@@ -4,6 +4,8 @@ import type { Post } from "./posts";
 import NewPostForm from "./NewPostForm";
 import StoriesBar from "./StoriesBar";
 import Navbar from "./Navbar";
+import Login from "./Login";
+import Signup from "./Signup";
 import { FaRegHeart } from "react-icons/fa";
 import "./App.css";
 
@@ -13,12 +15,6 @@ type User = {
   name: string;
   email: string;
   password: string;
-};
-
-const defaultAuthForm = {
-  name: "",
-  email: "",
-  password: "",
 };
 
 const getStoredUsers = (): User[] => {
@@ -36,7 +32,6 @@ function App() {
   const [commentDrafts, setCommentDrafts] = useState<Record<number, string>>({});
   const [activeView, setActiveView] = useState<"home" | "profile">("home");
   const [authMode, setAuthMode] = useState<AuthMode>("login");
-  const [authForm, setAuthForm] = useState(defaultAuthForm);
   const [authError, setAuthError] = useState("");
   const [currentUser, setCurrentUser] = useState<User | null>(() => {
     try {
@@ -56,51 +51,18 @@ function App() {
     localStorage.setItem("theme", darkMode ? "dark" : "light");
   }, [darkMode]);
 
-  const handleAuthFieldChange = (field: keyof typeof defaultAuthForm, value: string) => {
-    setAuthForm((current) => ({ ...current, [field]: value }));
-    setAuthError("");
-  };
+  const handleLoginSubmit = ({ email, password }: { email: string; password: string }) => {
+    const trimmedEmail = email.trim().toLowerCase();
+    const trimmedPassword = password.trim();
 
-  const handleAuthSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const trimmedName = authForm.name.trim();
-    const email = authForm.email.trim().toLowerCase();
-    const password = authForm.password.trim();
-
-    if (!email || !password || (authMode === "signup" && !trimmedName)) {
+    if (!trimmedEmail || !trimmedPassword) {
       setAuthError("Please fill in all fields.");
-      return;
-    }
-
-    if (authMode === "signup") {
-      const users = getStoredUsers();
-      const emailExists = users.some(
-        (user) => user.email.toLowerCase() === email
-      );
-
-      if (emailExists) {
-        setAuthError("An account with this email already exists.");
-        return;
-      }
-
-      const newUser: User = {
-        name: trimmedName,
-        email,
-        password,
-      };
-
-      localStorage.setItem("instagram-users", JSON.stringify([...users, newUser]));
-      localStorage.setItem("instagram-current-user", JSON.stringify(newUser));
-      setCurrentUser(newUser);
-      setAuthForm(defaultAuthForm);
-      setAuthError("");
       return;
     }
 
     const users = getStoredUsers();
     const matchedUser = users.find(
-      (user) => user.email.toLowerCase() === email && user.password === password
+      (user) => user.email.toLowerCase() === trimmedEmail && user.password === trimmedPassword
     );
 
     if (!matchedUser) {
@@ -110,7 +72,38 @@ function App() {
 
     localStorage.setItem("instagram-current-user", JSON.stringify(matchedUser));
     setCurrentUser(matchedUser);
-    setAuthForm(defaultAuthForm);
+    setAuthError("");
+  };
+
+  const handleSignupSubmit = ({ name, email, password }: { name: string; email: string; password: string }) => {
+    const trimmedName = name.trim();
+    const trimmedEmail = email.trim().toLowerCase();
+    const trimmedPassword = password.trim();
+
+    if (!trimmedName || !trimmedEmail || !trimmedPassword) {
+      setAuthError("Please fill in all fields.");
+      return;
+    }
+
+    const users = getStoredUsers();
+    const emailExists = users.some(
+      (user) => user.email.toLowerCase() === trimmedEmail
+    );
+
+    if (emailExists) {
+      setAuthError("An account with this email already exists.");
+      return;
+    }
+
+    const newUser: User = {
+      name: trimmedName,
+      email: trimmedEmail,
+      password: trimmedPassword,
+    };
+
+    localStorage.setItem("instagram-users", JSON.stringify([...users, newUser]));
+    localStorage.setItem("instagram-current-user", JSON.stringify(newUser));
+    setCurrentUser(newUser);
     setAuthError("");
   };
 
@@ -118,7 +111,6 @@ function App() {
     localStorage.removeItem("instagram-current-user");
     setCurrentUser(null);
     setAuthMode("login");
-    setAuthForm(defaultAuthForm);
     setAuthError("");
   };
 
@@ -208,42 +200,25 @@ function App() {
               </button>
             </div>
 
-            <form className="auth-form" onSubmit={handleAuthSubmit}>
-              {authMode === "signup" && (
-                <input
-                  type="text"
-                  placeholder="Full name"
-                  value={authForm.name}
-                  onChange={(event) =>
-                    handleAuthFieldChange("name", event.target.value)
-                  }
-                />
-              )}
-
-              <input
-                type="email"
-                placeholder="Email address"
-                value={authForm.email}
-                onChange={(event) =>
-                  handleAuthFieldChange("email", event.target.value)
-                }
+            {authMode === "login" ? (
+              <Login
+                onSubmit={handleLoginSubmit}
+                onSwitchToSignup={() => {
+                  setAuthMode("signup");
+                  setAuthError("");
+                }}
+                error={authError}
               />
-
-              <input
-                type="password"
-                placeholder="Password"
-                value={authForm.password}
-                onChange={(event) =>
-                  handleAuthFieldChange("password", event.target.value)
-                }
+            ) : (
+              <Signup
+                onSubmit={handleSignupSubmit}
+                onSwitchToLogin={() => {
+                  setAuthMode("login");
+                  setAuthError("");
+                }}
+                error={authError}
               />
-
-              {authError && <p className="auth-error">{authError}</p>}
-
-              <button type="submit" className="auth-submit-btn">
-                {authMode === "login" ? "Login" : "Create account"}
-              </button>
-            </form>
+            )}
           </div>
         </div>
       </div>
