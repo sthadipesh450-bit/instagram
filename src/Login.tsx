@@ -33,7 +33,19 @@ function Login({ onSubmit, onSwitchToSignup, error }: LoginProps) {
       {error && <p className="auth-error">{error}</p>}
 
       <button type="submit" className="auth-submit-btn">
-        Login
+        Log In
+      </button>
+
+      <div className="auth-divider">
+        <span>OR</span>
+      </div>
+
+      <button type="button" className="auth-social-btn">
+        Continue with Facebook
+      </button>
+
+      <button type="button" className="auth-forgot-btn">
+        Forgot password?
       </button>
 
       <p className="auth-switch-text">
