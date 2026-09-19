@@ -177,12 +177,50 @@ function App() {
     return (
       <div className={darkMode ? "app dark auth-page" : "app auth-page"}>
         <div className="auth-shell">
-          <div className="auth-brand">
-            <span className="auth-logo">◎</span>
-            <h1>My Instagram</h1>
+          <div className="auth-promo" aria-label="Instagram preview panel">
+            <div className="promo-phone">
+              <div className="promo-screen">
+                <div className="promo-topbar">
+                  <span className="mini-dot" />
+                  <span className="mini-dot" />
+                  <span className="mini-dot" />
+                </div>
+                <div className="promo-story-row">
+                  <span className="story-pill story-one" />
+                  <span className="story-pill story-two" />
+                  <span className="story-pill story-three" />
+                </div>
+                <div className="promo-feed-card">
+                  <div className="promo-card-head">
+                    <span className="promo-avatar" />
+                    <span>mila_travel</span>
+                  </div>
+                  <div className="promo-image" />
+                  <div className="promo-actions">
+                    <span />
+                    <span />
+                    <span />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="promo-copy">
+              <p className="promo-kicker">Share your world</p>
+              <h2>Connect with friends and post every moment.</h2>
+              <ul>
+                <li>Discover stories from people you love</li>
+                <li>Post photos and keep memories alive</li>
+                <li>Follow creators, trends, and communities</li>
+              </ul>
+            </div>
           </div>
 
           <div className="auth-card">
+            <div className="auth-brand">
+              <span className="auth-logo">◎</span>
+              <h1>My Instagram</h1>
+            </div>
+
             <div className="auth-toggle">
               <button
                 type="button"
