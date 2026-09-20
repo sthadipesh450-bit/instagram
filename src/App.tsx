@@ -31,6 +31,7 @@ function App() {
   const [darkMode, setDarkMode] = useState(false);
   const [commentDrafts, setCommentDrafts] = useState<Record<number, string>>({});
   const [activeView, setActiveView] = useState<"home" | "profile">("home");
+  const [profileTab, setProfileTab] = useState<"posts" | "saved" | "tagged">("posts");
   const [authMode, setAuthMode] = useState<AuthMode>("login");
   const [authError, setAuthError] = useState("");
   const [currentUser, setCurrentUser] = useState<User | null>(() => {
@@ -128,10 +129,19 @@ function App() {
 
   const profile = {
     username: currentUser ? `@${currentUser.name.toLowerCase().replace(/\s+/g, "")}` : "@yourprofile",
+    displayName: currentUser ? currentUser.name : "Your profile",
     bio: "Photographer • foodie • exploring the world one city at a time",
+    website: "mila-travel.com",
     followers: "24.8K",
     following: "318",
   };
+
+  const profileTabPosts =
+    profileTab === "posts"
+      ? postList
+      : profileTab === "saved"
+        ? postList.filter((post) => [1, 3].includes(post.id))
+        : postList.filter((post) => [2].includes(post.id));
 
   const handleAddComment = (postId: number) => {
     const text = commentDrafts[postId]?.trim();
@@ -293,7 +303,9 @@ function App() {
         {activeView === "profile" ? (
           <section className="profile-card">
             <div className="profile-header">
-              <div className="profile-avatar" />
+              <div className="profile-avatar" aria-label="Profile avatar">
+                <span>{profile.displayName.charAt(0).toUpperCase()}</span>
+              </div>
 
               <div className="profile-details">
                 <div className="profile-top-row">
@@ -318,16 +330,41 @@ function App() {
                   </span>
                 </div>
 
+                <p className="profile-display-name">{profile.displayName}</p>
                 <p className="profile-bio">{profile.bio}</p>
+                <a href="https://example.com" className="profile-website">
+                  {profile.website}
+                </a>
               </div>
             </div>
 
-            <div className="profile-grid" aria-label="User posts">
-              {postList.map((post) => (
-                <div key={post.id} className="profile-grid-item">
-                  <img src={post.image} alt={post.caption} />
-                </div>
+            <div className="profile-tabs" role="tablist" aria-label="Profile tabs">
+              {[
+                { id: "posts", label: "Posts" },
+                { id: "saved", label: "Saved" },
+                { id: "tagged", label: "Tagged" },
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  type="button"
+                  className={profileTab === tab.id ? "profile-tab active" : "profile-tab"}
+                  onClick={() => setProfileTab(tab.id as "posts" | "saved" | "tagged")}
+                >
+                  {tab.label}
+                </button>
               ))}
+            </div>
+
+            <div className="profile-grid" aria-label="User posts">
+              {profileTabPosts.length > 0 ? (
+                profileTabPosts.map((post) => (
+                  <div key={post.id} className="profile-grid-item">
+                    <img src={post.image} alt={post.caption} />
+                  </div>
+                ))
+              ) : (
+                <div className="profile-empty-state">No photos here yet.</div>
+              )}
             </div>
           </section>
         ) : (
