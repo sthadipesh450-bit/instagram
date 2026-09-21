@@ -1,4 +1,5 @@
 import {
+  FaEnvelope,
   FaHeart,
   FaHome,
   FaInstagram,
@@ -14,9 +15,10 @@ interface NavbarProps {
   username?: string;
   onToggleTheme: () => void;
   onLogout: () => void;
+  onSelectView: (view: "home" | "profile" | "messages") => void;
 }
 
-function Navbar({ darkMode, username, onToggleTheme, onLogout }: NavbarProps) {
+function Navbar({ darkMode, username, onToggleTheme, onLogout, onSelectView }: NavbarProps) {
   return (
     <header className="navbar">
       <div className="navbar-inner">
@@ -26,7 +28,7 @@ function Navbar({ darkMode, username, onToggleTheme, onLogout }: NavbarProps) {
         </div>
 
         <div className="navbar-icons">
-          <button className="nav-icon-btn" aria-label="Home">
+          <button className="nav-icon-btn" aria-label="Home" onClick={() => onSelectView("home")}>
             <FaHome size={18} />
           </button>
           <button className="nav-icon-btn" aria-label="Search">
@@ -38,6 +40,9 @@ function Navbar({ darkMode, username, onToggleTheme, onLogout }: NavbarProps) {
           <button className="nav-icon-btn" aria-label="Likes">
             <FaHeart size={18} />
           </button>
+          <button className="nav-icon-btn" aria-label="Messages" onClick={() => onSelectView("messages")}>
+            <FaEnvelope size={18} />
+          </button>
           <button
             className="nav-icon-btn theme-toggle-btn"
             aria-label="Toggle theme"
@@ -45,7 +50,7 @@ function Navbar({ darkMode, username, onToggleTheme, onLogout }: NavbarProps) {
           >
             {darkMode ? <FaSun size={18} /> : <FaMoon size={18} />}
           </button>
-          <button className="nav-icon-btn profile-btn" aria-label="Profile">
+          <button className="nav-icon-btn profile-btn" aria-label="Profile" onClick={() => onSelectView("profile")}>
             <FaUserCircle size={22} />
           </button>
           {username && (
