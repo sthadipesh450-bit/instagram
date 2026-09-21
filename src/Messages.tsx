@@ -96,6 +96,15 @@ function Messages() {
               <p>{selectedThread.status}</p>
             </div>
           </div>
+
+          <div className="chat-actions">
+            <button type="button" className="chat-action-btn">
+              Call
+            </button>
+            <button type="button" className="chat-action-btn">
+              Video
+            </button>
+          </div>
         </div>
 
         <div className="chat-body">
