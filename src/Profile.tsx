@@ -30,6 +30,12 @@ function Profile({
         ? posts.filter((post) => [1, 3].includes(post.id))
         : posts.filter((post) => [2].includes(post.id));
 
+  const highlights = [
+    { label: "Travel", count: "18" },
+    { label: "Food", count: "11" },
+    { label: "Studio", count: "7" },
+  ];
+
   return (
     <section className="profile-card">
       <div className="profile-header">
@@ -43,9 +49,14 @@ function Profile({
               <p className="profile-label">Profile</p>
               <h2>{userName}</h2>
             </div>
-            <button type="button" className="profile-action-btn">
-              Edit Profile
-            </button>
+            <div className="profile-actions">
+              <button type="button" className="profile-action-btn primary">
+                Edit Profile
+              </button>
+              <button type="button" className="profile-action-btn secondary">
+                Share
+              </button>
+            </div>
           </div>
 
           <div className="profile-stats">
@@ -65,6 +76,18 @@ function Profile({
           <a href="https://example.com" className="profile-website">
             {website}
           </a>
+
+          <div className="profile-highlights" aria-label="Profile highlights">
+            {highlights.map((item) => (
+              <div key={item.label} className="highlight-pill">
+                <span className="highlight-dot" />
+                <div>
+                  <strong>{item.count}</strong>
+                  <small>{item.label}</small>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 

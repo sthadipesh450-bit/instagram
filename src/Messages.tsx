@@ -62,7 +62,10 @@ function Messages() {
     <section className="messages-card">
       <aside className="messages-sidebar">
         <div className="messages-header">
-          <h3>Messages</h3>
+          <div>
+            <p className="messages-label">Inbox</p>
+            <h3>Messages</h3>
+          </div>
           <button type="button" className="messages-new-btn">
             New
           </button>
