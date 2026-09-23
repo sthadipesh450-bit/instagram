@@ -1,4 +1,4 @@
-import { FaComment, FaPlay, FaRegHeart } from "react-icons/fa";
+import { FaBookmark, FaComment, FaPaperPlane, FaPlay, FaRegHeart } from "react-icons/fa";
 import NewPostForm from "./NewPostForm";
 import StoriesBar from "./StoriesBar";
 import type { Post } from "./posts";
@@ -118,6 +118,15 @@ function HomeFeed({
           <div className="post-actions">
             <button className="icon-btn" onClick={() => onLike(post.id)}>
               <FaRegHeart size={22} />
+            </button>
+            <button className="icon-btn" aria-label="Comment">
+              <FaComment size={22} />
+            </button>
+            <button className="icon-btn" aria-label="Share">
+              <FaPaperPlane size={22} />
+            </button>
+            <button className="icon-btn save-btn" aria-label="Save post">
+              <FaBookmark size={20} />
             </button>
           </div>
 

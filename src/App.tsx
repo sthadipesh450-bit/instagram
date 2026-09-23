@@ -25,7 +25,7 @@ const getStoredUsers = (): User[] => {
   }
 };
 
-type ViewMode = "home" | "profile" | "messages";
+type ViewMode = "home" | "profile" | "messages" | "explore";
 
 function App() {
   const [postList, setPostList] = useState<Post[]>(posts);
@@ -33,6 +33,7 @@ function App() {
   const [darkMode, setDarkMode] = useState(false);
   const [commentDrafts, setCommentDrafts] = useState<Record<number, string>>({});
   const [activeView, setActiveView] = useState<ViewMode>("home");
+  const [showNotifications, setShowNotifications] = useState(false);
   const [profileTab, setProfileTab] = useState<"posts" | "saved" | "tagged">("posts");
   const [authMode, setAuthMode] = useState<AuthMode>("login");
   const [authError, setAuthError] = useState("");
@@ -137,6 +138,12 @@ function App() {
     followers: "24.8K",
     following: "318",
   };
+
+  const notifications = [
+    { id: 1, user: "lena.food", text: "liked your photo", time: "2m ago" },
+    { id: 2, user: "skyline", text: "commented on your post", time: "18m ago" },
+    { id: 3, user: "miles_travel", text: "started following you", time: "1h ago" },
+  ];
 
   const handleAddComment = (postId: number) => {
     const text = commentDrafts[postId]?.trim();
@@ -275,7 +282,12 @@ function App() {
         username={currentUser.name.split(" ")[0]}
         onToggleTheme={() => setDarkMode((prev) => !prev)}
         onLogout={handleLogout}
-        onSelectView={setActiveView}
+        onSelectView={(view) => {
+          setActiveView(view);
+          setShowNotifications(false);
+        }}
+        onToggleNotifications={() => setShowNotifications((prev) => !prev)}
+        showNotifications={showNotifications}
       />
 
       <main className="feed">
@@ -286,6 +298,13 @@ function App() {
             onClick={() => setActiveView("home")}
           >
             Home
+          </button>
+          <button
+            type="button"
+            className={activeView === "explore" ? "view-tab active" : "view-tab"}
+            onClick={() => setActiveView("explore")}
+          >
+            Explore
           </button>
           <button
             type="button"
@@ -303,7 +322,52 @@ function App() {
           </button>
         </div>
 
-        {activeView === "messages" ? (
+        {showNotifications && (
+          <aside className="notification-panel" aria-label="Notifications panel">
+            <div className="notification-header">
+              <h3>Notifications</h3>
+              <button type="button" onClick={() => setShowNotifications(false)}>
+                Close
+              </button>
+            </div>
+            <div className="notification-list">
+              {notifications.map((item) => (
+                <div key={item.id} className="notification-item">
+                  <div className="notification-avatar">{item.user.charAt(0).toUpperCase()}</div>
+                  <div className="notification-copy">
+                    <p>
+                      <strong>{item.user}</strong> {item.text}
+                    </p>
+                    <span>{item.time}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </aside>
+        )}
+
+        {activeView === "explore" ? (
+          <section className="explore-panel" aria-label="Explore panel">
+            <div className="explore-header">
+              <h3>Explore</h3>
+              <button type="button">Discover</button>
+            </div>
+
+            <div className="explore-grid">
+              {[
+                { title: "Travel", image: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=80" },
+                { title: "Food", image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=80" },
+                { title: "Lifestyle", image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80" },
+                { title: "Fashion", image: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=900&q=80" },
+              ].map((item) => (
+                <div key={item.title} className="explore-card">
+                  <img src={item.image} alt={item.title} />
+                  <span>{item.title}</span>
+                </div>
+              ))}
+            </div>
+          </section>
+        ) : activeView === "messages" ? (
           <Messages />
         ) : activeView === "profile" ? (
           <Profile

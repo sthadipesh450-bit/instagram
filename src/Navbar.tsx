@@ -15,10 +15,20 @@ interface NavbarProps {
   username?: string;
   onToggleTheme: () => void;
   onLogout: () => void;
-  onSelectView: (view: "home" | "profile" | "messages") => void;
+  onSelectView: (view: "home" | "profile" | "messages" | "explore") => void;
+  onToggleNotifications: () => void;
+  showNotifications: boolean;
 }
 
-function Navbar({ darkMode, username, onToggleTheme, onLogout, onSelectView }: NavbarProps) {
+function Navbar({
+  darkMode,
+  username,
+  onToggleTheme,
+  onLogout,
+  onSelectView,
+  onToggleNotifications,
+  showNotifications,
+}: NavbarProps) {
   return (
     <header className="navbar">
       <div className="navbar-inner">
@@ -31,13 +41,17 @@ function Navbar({ darkMode, username, onToggleTheme, onLogout, onSelectView }: N
           <button className="nav-icon-btn" aria-label="Home" onClick={() => onSelectView("home")}>
             <FaHome size={18} />
           </button>
-          <button className="nav-icon-btn" aria-label="Search">
+          <button className="nav-icon-btn" aria-label="Explore" onClick={() => onSelectView("explore")}>
             <FaSearch size={18} />
           </button>
           <button className="nav-icon-btn" aria-label="Create">
             <FaPlusSquare size={18} />
           </button>
-          <button className="nav-icon-btn" aria-label="Likes">
+          <button
+            className={showNotifications ? "nav-icon-btn active" : "nav-icon-btn"}
+            aria-label="Notifications"
+            onClick={onToggleNotifications}
+          >
             <FaHeart size={18} />
           </button>
           <button className="nav-icon-btn" aria-label="Messages" onClick={() => onSelectView("messages")}>
