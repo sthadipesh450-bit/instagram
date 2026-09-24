@@ -65,6 +65,10 @@ function HomeFeed({
   return (
     <div className="home-layout">
       <div className="feed-column">
+        <div className="stories-header">
+          <span>Story highlights</span>
+          <button type="button">View all</button>
+        </div>
         <StoriesBar />
 
         <section className="reels-section" aria-label="Reels section">
