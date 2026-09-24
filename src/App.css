@@ -511,6 +511,15 @@ input {
     display: none;
   }
 
+  .home-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .suggested-sidebar {
+    position: static;
+    margin-top: 0;
+  }
+
   .reels-row {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1104,8 +1113,123 @@ input {
   background: rgba(0, 0, 0, 0.015);
 }
 
+.home-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) 320px;
+  gap: 28px;
+  align-items: start;
+  margin: 0 12px;
+}
+
+.feed-column {
+  min-width: 0;
+}
+
+.suggested-sidebar {
+  position: sticky;
+  top: 88px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 22px;
+  padding: 16px;
+  box-shadow: var(--shadow-soft);
+}
+
+.sidebar-profile-card {
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 14px;
+}
+
+.sidebar-user-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sidebar-avatar,
+.suggested-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f09433, #bc1888, #6a5cff);
+  color: white;
+  font-weight: 800;
+}
+
+.sidebar-user-row strong,
+.suggested-user-item strong {
+  display: block;
+  color: var(--text-color);
+}
+
+.sidebar-user-row p,
+.suggested-user-item p {
+  color: var(--muted-text);
+  font-size: 0.72rem;
+  margin-top: 2px;
+}
+
+.sidebar-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.sidebar-section-header span {
+  color: var(--muted-text);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.sidebar-section-header button {
+  border: none;
+  background: transparent;
+  color: var(--text-color);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.suggested-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.suggested-user-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.suggested-user-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.suggested-user-meta div {
+  min-width: 0;
+}
+
+.suggested-user-item button {
+  border: none;
+  background: #0095f6;
+  color: white;
+  border-radius: 999px;
+  padding: 7px 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
 .reels-section {
-  margin: 0 12px 22px;
+  margin: 0 0 22px;
 }
 
 .reels-header {
