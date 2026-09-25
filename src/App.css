@@ -43,9 +43,7 @@ input {
 
 .app {
   min-height: 100vh;
-  background:
-    radial-gradient(circle at top, rgba(227, 90, 161, 0.06), transparent 25%),
-    var(--bg-color);
+  background: var(--bg-color);
   color: var(--text-color);
 }
 
@@ -565,16 +563,16 @@ input {
 .view-switch {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
   margin: 0 12px 20px;
   padding: 8px;
-  background: rgba(255, 255, 255, 0.72);
+  background: var(--card-bg);
   border: 1px solid var(--border-color);
   border-radius: 999px;
   width: fit-content;
   margin-left: auto;
   margin-right: auto;
-  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
+  box-shadow: none;
 }
 
 .view-tab {
@@ -589,9 +587,9 @@ input {
 }
 
 .view-tab.active {
-  background: linear-gradient(135deg, #0095f6, #7b2ff7);
+  background: #111111;
   color: white;
-  box-shadow: 0 8px 18px rgba(0, 149, 246, 0.25);
+  box-shadow: none;
 }
 
 .messages-card {
@@ -1138,9 +1136,9 @@ input {
   top: 88px;
   background: var(--card-bg);
   border: 1px solid var(--border-color);
-  border-radius: 22px;
+  border-radius: 18px;
   padding: 16px;
-  box-shadow: var(--shadow-soft);
+  box-shadow: none;
 }
 
 .sidebar-profile-card {
@@ -1275,10 +1273,10 @@ input {
 .reel-media {
   position: relative;
   aspect-ratio: 9 / 16;
-  border-radius: 18px;
+  border-radius: 16px;
   overflow: hidden;
   background: #111827;
-  box-shadow: var(--shadow-soft);
+  box-shadow: none;
 }
 
 .reel-media img {
@@ -1419,7 +1417,7 @@ input {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: var(--shadow-soft);
+  box-shadow: none;
 }
 
 .story-ring.viewed {
@@ -1448,15 +1446,15 @@ input {
 .toggle-form-btn {
   width: min(100%, 930px);
   margin: 0 12px 16px;
-  background: linear-gradient(135deg, #0095f6, #7b2ff7);
-  color: white;
-  border: none;
+  background: #fafafa;
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
   padding: 11px 16px;
   border-radius: 12px;
   font-weight: 700;
   cursor: pointer;
   font-size: 14px;
-  box-shadow: 0 10px 20px rgba(0, 149, 246, 0.2);
+  box-shadow: none;
 }
 
 .toggle-form-btn:hover {
@@ -1513,7 +1511,7 @@ input {
   border-radius: 18px;
   overflow: hidden;
   margin-bottom: 24px;
-  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.05);
+  box-shadow: none;
 }
 
 .post-header {
