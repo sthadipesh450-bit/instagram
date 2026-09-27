@@ -51,6 +51,12 @@ const suggestedUsers = [
   { id: 3, name: "wander_more", mutual: "Followed by sara and 2 others" },
 ];
 
+const quickActions = [
+  { id: 1, label: "Reels", tone: "rose" },
+  { id: 2, label: "Shop", tone: "sky" },
+  { id: 3, label: "Live", tone: "purple" },
+];
+
 function HomeFeed({
   postList,
   showForm,
@@ -70,6 +76,14 @@ function HomeFeed({
           <button type="button">View all</button>
         </div>
         <StoriesBar />
+
+        <section className="quick-actions" aria-label="Quick actions">
+          {quickActions.map((action) => (
+            <button key={action.id} type="button" className={`quick-action-card ${action.tone}`}>
+              {action.label}
+            </button>
+          ))}
+        </section>
 
         <section className="reels-section" aria-label="Reels section">
           <div className="reels-header">

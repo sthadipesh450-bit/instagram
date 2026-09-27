@@ -353,6 +353,21 @@ function App() {
               <button type="button">Discover</button>
             </div>
 
+            <div className="trend-tags" aria-label="Trending topics">
+              {[
+                "#travel",
+                "#foodie",
+                "#lifestyle",
+                "#fashion",
+                "#art",
+                "#nature",
+              ].map((tag) => (
+                <button key={tag} type="button" className="trend-tag">
+                  {tag}
+                </button>
+              ))}
+            </div>
+
             <div className="explore-grid">
               {[
                 { title: "Travel", image: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=80" },
