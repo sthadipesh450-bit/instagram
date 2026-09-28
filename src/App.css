@@ -1271,10 +1271,10 @@ input {
 
 .reels-page {
   margin: 0 12px 18px;
-  background: var(--card-bg);
-  border: 1px solid var(--border-color);
-  border-radius: 22px;
-  padding: 18px 16px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
 }
 
 .reels-page-header {
@@ -1282,6 +1282,7 @@ input {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 18px;
+  padding: 0 4px;
 }
 
 .reels-kicker {
@@ -1290,16 +1291,17 @@ input {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   font-weight: 700;
-  margin-bottom: 4px;
+  margin-bottom: 5px;
 }
 
 .reels-page-header h3 {
-  font-size: 1.3rem;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
 }
 
 .reels-filter-btn {
   border: 1px solid var(--border-color);
-  background: transparent;
+  background: var(--card-bg);
   color: var(--text-color);
   border-radius: 999px;
   padding: 8px 12px;
@@ -1310,36 +1312,38 @@ input {
 .reels-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
+  gap: 18px;
 }
 
 .reel-page-card {
   border: 1px solid var(--border-color);
-  border-radius: 20px;
+  border-radius: 22px;
   overflow: hidden;
   background: var(--card-bg);
+  box-shadow: none;
 }
 
 .reel-page-card.rose {
-  background: linear-gradient(180deg, rgba(244, 114, 182, 0.08), rgba(255, 255, 255, 1));
+  background: linear-gradient(180deg, rgba(244, 114, 182, 0.04), rgba(255, 255, 255, 1));
 }
 
 .reel-page-card.gold {
-  background: linear-gradient(180deg, rgba(251, 191, 36, 0.08), rgba(255, 255, 255, 1));
+  background: linear-gradient(180deg, rgba(251, 191, 36, 0.04), rgba(255, 255, 255, 1));
 }
 
 .reel-page-card.purple {
-  background: linear-gradient(180deg, rgba(168, 85, 247, 0.08), rgba(255, 255, 255, 1));
+  background: linear-gradient(180deg, rgba(168, 85, 247, 0.04), rgba(255, 255, 255, 1));
 }
 
 .reel-page-card.sky {
-  background: linear-gradient(180deg, rgba(96, 165, 250, 0.08), rgba(255, 255, 255, 1));
+  background: linear-gradient(180deg, rgba(96, 165, 250, 0.04), rgba(255, 255, 255, 1));
 }
 
 .reel-page-media {
   position: relative;
   aspect-ratio: 9 / 15;
   overflow: hidden;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 .reel-page-media img {
@@ -1403,10 +1407,12 @@ input {
   background: rgba(0, 0, 0, 0.22);
   padding: 6px 8px;
   border-radius: 999px;
+  backdrop-filter: blur(2px);
 }
 
 .reel-page-meta {
   padding: 12px 12px 14px;
+  background: rgba(255, 255, 255, 0.25);
 }
 
 .reel-page-user {
