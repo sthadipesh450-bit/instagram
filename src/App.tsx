@@ -7,6 +7,7 @@ import HomeFeed from "./HomeFeed";
 import Profile from "./Profile";
 import Login from "./Login";
 import Signup from "./Signup";
+import Reels from "./Reels";
 import "./App.css";
 
 type AuthMode = "login" | "signup";
@@ -25,7 +26,7 @@ const getStoredUsers = (): User[] => {
   }
 };
 
-type ViewMode = "home" | "profile" | "messages" | "explore";
+type ViewMode = "home" | "profile" | "messages" | "explore" | "reels";
 
 function App() {
   const [postList, setPostList] = useState<Post[]>(posts);
@@ -308,6 +309,13 @@ function App() {
           </button>
           <button
             type="button"
+            className={activeView === "reels" ? "view-tab active" : "view-tab"}
+            onClick={() => setActiveView("reels")}
+          >
+            Reels
+          </button>
+          <button
+            type="button"
             className={activeView === "messages" ? "view-tab active" : "view-tab"}
             onClick={() => setActiveView("messages")}
           >
@@ -382,6 +390,8 @@ function App() {
               ))}
             </div>
           </section>
+        ) : activeView === "reels" ? (
+          <Reels />
         ) : activeView === "messages" ? (
           <Messages />
         ) : activeView === "profile" ? (
