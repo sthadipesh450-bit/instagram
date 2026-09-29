@@ -1310,17 +1310,31 @@ input {
 }
 
 .reels-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  height: min(72svh, 760px);
+  min-height: 460px;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scroll-snap-type: y mandatory;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-color) transparent;
 }
 
 .reel-page-card {
+  position: relative;
+  flex: 0 0 100%;
+  width: min(100%, 430px);
+  min-height: 0;
   border: 1px solid var(--border-color);
   border-radius: 22px;
   overflow: hidden;
   background: var(--card-bg);
   box-shadow: none;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 
 .reel-page-card.rose {
@@ -1340,10 +1354,9 @@ input {
 }
 
 .reel-page-media {
-  position: relative;
-  aspect-ratio: 9 / 15;
+  position: absolute;
+  inset: 0;
   overflow: hidden;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 .reel-page-media img {
@@ -1356,12 +1369,13 @@ input {
 .reel-page-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.42));
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.2), transparent 30%, transparent 52%, rgba(0, 0, 0, 0.58));
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   flex-direction: column;
   padding: 12px;
+  pointer-events: none;
 }
 
 .reel-page-topline {
@@ -1391,7 +1405,11 @@ input {
 }
 
 .reel-page-actions {
+  position: absolute;
+  right: 12px;
+  bottom: 92px;
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   align-items: center;
   gap: 12px;
@@ -1411,8 +1429,13 @@ input {
 }
 
 .reel-page-meta {
-  padding: 12px 12px 14px;
-  background: rgba(255, 255, 255, 0.25);
+  position: absolute;
+  left: 14px;
+  right: 64px;
+  bottom: 14px;
+  z-index: 1;
+  padding: 10px 0;
+  color: white;
 }
 
 .reel-page-user {
@@ -1420,7 +1443,7 @@ input {
   align-items: center;
   gap: 8px;
   margin-bottom: 8px;
-  color: var(--text-color);
+  color: white;
   font-weight: 700;
 }
 
@@ -1440,7 +1463,7 @@ input {
 .reel-page-meta p {
   font-size: 0.9rem;
   line-height: 1.5;
-  color: var(--text-color);
+  color: white;
 }
 
 .reels-section {
