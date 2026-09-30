@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import posts from "./posts";
 import type { Post } from "./posts";
 import Navbar from "./Navbar";
-import Messages from "./Messages";
+import InboxPage from "./InboxPage";
 import HomeFeed from "./HomeFeed";
 import Profile from "./Profile";
 import Login from "./Login";
@@ -393,7 +393,7 @@ function App() {
         ) : activeView === "reels" ? (
           <Reels />
         ) : activeView === "messages" ? (
-          <Messages />
+          <InboxPage />
         ) : activeView === "profile" ? (
           <Profile
             posts={postList}
