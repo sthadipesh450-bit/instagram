@@ -70,9 +70,14 @@ const messageThreads: MessageThread[] = [
 
 function InboxPage() {
   const [selectedThreadId, setSelectedThreadId] = useState(1);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const selectedThread =
     messageThreads.find((thread) => thread.id === selectedThreadId) ?? messageThreads[0];
+
+  const filteredThreads = messageThreads.filter((thread) =>
+    thread.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <section className="messages-card">
@@ -87,7 +92,17 @@ function InboxPage() {
           </button>
         </div>
 
-        {messageThreads.map((thread) => (
+        <div className="messages-search-box">
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={(event) => setSearchTerm(event.target.value)}
+            placeholder="Search messages"
+            aria-label="Search messages"
+          />
+        </div>
+
+        {filteredThreads.map((thread) => (
           <button
             key={thread.id}
             type="button"
